@@ -1,0 +1,12 @@
+function namePosition = name_displace(fig,number,tmpvalue,value)
+handles = getappdata(fig,'handles');
+recPosition = get(handles.RecMat(number),'Position');
+namePosition = get(handles.NodeNumberText(number),'Position');
+reccenter = [recPosition(1)+recPosition(3)/2 recPosition(2)+recPosition(4)/2];
+rec2name = zeros(1,3);
+rec2name(1:2) = namePosition(1:2)-reccenter(1:2);
+rec2name(3) = sqrt(rec2name(1)^2+rec2name(2)^2);
+rec2name(1:2) = rec2name(1:2)/rec2name(3)*(rec2name(3)-tmpvalue/2);
+rec2name(3) = rec2name(3)-tmpvalue/2;
+rec2name(1:2) = rec2name(1:2) + rec2name(1:2)/rec2name(3)*value/2;
+namePosition(1:2) = reccenter(1:2) + rec2name(1:2);
